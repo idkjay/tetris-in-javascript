@@ -69,15 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //assign functions to key presses via its codes
     function control(event) {
-        if(event.keyCode === 37 || event.keyCode === 65) {
-            moveLeft();
-        } else if (event.keyCode === 32) {
-            rotate();
-        } else if (event.keyCode === 39 || event.keyCode === 68) {
-            moveRight();
-        } else if (event.keyCode === 40 || event.keyCode === 83) {
-            moveDown();
-        } else if (event.keyCode === 87 || event.keyCode === 38) {
+        if (event.keyCode === 87 || event.keyCode === 38) {
             moveInstantDown();
         };
     };
