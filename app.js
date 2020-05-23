@@ -71,7 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function control(event) {
         if(event.keyCode === 37 || event.keyCode === 65) {
             moveLeft();
-        } 
+        } else if (event.keyCode === 38 || event.keyCode === 87) {
+            //rotate
+        } else if (event.keyCode === 39 || event.keyCode === 68) {
+            moveRight();
+        } else if (event.keyCode === 40 || event.keyCode === 83) {
+            //move piece down faster
+        }
     };
 
     document.addEventListener('keyup', control)
@@ -104,6 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
             currentPosition += 1;
+        };
+
+        draw();
+    }
+
+    //move tetromino right unless it's at the edge or blocked
+    function moveRight() {
+        undraw();
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1);
+
+        if(!isAtRightEdge) currentPosition += 1;
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -= 1;
         };
 
         draw();
