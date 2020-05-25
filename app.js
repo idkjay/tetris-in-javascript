@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     //show up next shape in mini grid 
-    const displaySquares = document.querySelectorAll('.mini-grid');
+    const displaySquares = document.querySelectorAll('.mini-grid div');
     const displayWidth = 4;
     let displayIndex = 0;
 
@@ -175,18 +175,18 @@ document.addEventListener('DOMContentLoaded', () => {
         [1, displayWidth, displayWidth + 1, displayWidth + 2],
         [0, 1, displayWidth, displayWidth + 1],
         [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1]
-    ]
+    ];
 
     //shows shapes in mini grid display
     function displayShape() {
         //this will remove any trace of a tetromino from the entire grid
         displaySquares.forEach(square => {
-            square.classList.remove('tetromino')
-        })
+            square.classList.remove('tetromino');
+        });
         upNextTetromino[nextRandom].forEach( index => {
-            displaySquares[displayIndex + index].classList.add('tetromino')
-        })
-    }
+            displaySquares[displayIndex + index].classList.add('tetromino');
+        });
+    };
 
 
 
