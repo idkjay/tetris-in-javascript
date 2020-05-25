@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //freeze function
     function freeze() {
+        displayShape();
         if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'));
             random = nextRandom;
@@ -115,13 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
             current = theTetrominoes[random][currentRotation];
             currentPosition = 4;
             draw();
-            displayShape();
         };
     };
 
     //move tetromino left unless it's at the edge or blocked
     function moveLeft() {
         undraw();
+
         const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0);
 
         if(!isAtLeftEdge) currentPosition -= 1;
