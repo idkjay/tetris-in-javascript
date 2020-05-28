@@ -188,10 +188,4 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetromino');
         });
     };
-
-
-
-
-
-
 });
