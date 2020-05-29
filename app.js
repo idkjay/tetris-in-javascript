@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10;
     let nextRandom = 0;
     let timerId;
-    let score
+    let score = 0;
 
     //tetrominoes
     const lTetromino = [
@@ -71,16 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // timerId = setInterval(moveDown, 300);
 
     //assign functions to key presses via its codes
-    function control(event) {
-        if (event.keyCode === 87 || event.keyCode === 38) {
-            moveInstantDown();
-        };
-    };
+    // function control(event) {
+    //     if (event.keyCode === 87 || event.keyCode === 38) {
+    //         moveInstantDown();
+    //     };
+    // };
 
     function keyhandler(event) {
         if(event.keyCode === 37 || event.keyCode === 65) {
             moveLeft();
-        } else if (event.keyCode === 32) {
+        } else if (event.keyCode === 87 || event.keyCode === 38) {
             rotate();
         } else if (event.keyCode === 39 || event.keyCode === 68) {
             moveRight();
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }; 
     };
    
-    document.addEventListener('keyup', control)
+    // document.addEventListener('keyup', control)
     document.addEventListener('keydown', keyhandler)
 
     //move down function faster
@@ -118,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
             current = theTetrominoes[random][currentRotation];
             currentPosition = 4;
             draw();
+            addScore();
+            gameOver();
         };
     };
 
@@ -213,15 +215,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 score += 10;
                 scoreDisplay.innerHTML = score;
                 row.forEach(index => {
-                    squares[index].classList.remove('taken')
-                    squares[index].classList.remove('tetromino')
+                    squares[index].classList.remove('taken');
+                    squares[index].classList.remove('tetromino');
                 })
-                const squaresRemoved = squares.splice(i, width)
-                squares = squaresRemoved.concat(squares)
-                squares.forEach(cell => grid.appendChild(cell))
-            }
-        }
-    }
+                const squaresRemoved = squares.splice(i, width);
+                squares = squaresRemoved.concat(squares);
+                squares.forEach(cell => grid.appendChild(cell));
+            };
+        };
+    };
+
+    //game over!!!
+    function gameOver() {
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            scoreDisplay.innerHTML = 'Game Over';
+            clearInterval(timerId);
+        };
+    };
+
 
 
 });
