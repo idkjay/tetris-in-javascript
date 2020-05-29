@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.querySelector('#start-button');
     const width = 10;
     let nextRandom = 0;
+    let timerId;
 
     //tetrominoes
     const lTetromino = [
@@ -188,4 +189,17 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetromino');
         });
     };
+
+    //add functionality to the start button
+    startBtn.addEventListener('click', () => {
+        if(timerId) {
+            clearInterval(timerId)
+            timerId = null
+        } else {
+            draw()
+            timerId = setInterval(moveDown, 1000)
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
+            displayShape();
+        }
+    });
 });
