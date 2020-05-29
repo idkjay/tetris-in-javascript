@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 10;
     let nextRandom = 0;
     let timerId;
+    let score
 
     //tetrominoes
     const lTetromino = [
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     //make the tetromino move down every second
-    timerId = setInterval(moveDown, 300);
+    // timerId = setInterval(moveDown, 300);
 
     //assign functions to key presses via its codes
     function control(event) {
@@ -193,13 +194,34 @@ document.addEventListener('DOMContentLoaded', () => {
     //add functionality to the start button
     startBtn.addEventListener('click', () => {
         if(timerId) {
-            clearInterval(timerId)
-            timerId = null
+            clearInterval(timerId);
+            timerId = null;
         } else {
-            draw()
-            timerId = setInterval(moveDown, 1000)
-            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
+            draw();
+            timerId = setInterval(moveDown, 300);
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length);
             displayShape();
         }
     });
+
+    //add score
+    function addScore() {
+        for (let i = 0; i < 199; i += width) {
+            const row = [i, i + 1, i + 2, i+ 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
+
+            if(row.every(index => squares[index].classList.contains('taken'))) {
+                score += 10;
+                scoreDisplay.innerHTML = score;
+                row.forEach(index => {
+                    squares[index].classList.remove('taken')
+                    squares[index].classList.remove('tetromino')
+                })
+                const squaresRemoved = squares.splice(i, width)
+                squares = squaresRemoved.concat(squares)
+                squares.forEach(cell => grid.appendChild(cell))
+            }
+        }
+    }
+
+
 });
